@@ -1,4 +1,4 @@
-package com.zyb.myweather;
+package com.zyb.myWeather;
 
 import org.junit.Test;
 

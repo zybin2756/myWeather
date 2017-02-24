@@ -1,4 +1,4 @@
-package com.zyb.myweather;
+package com.zyb.myWeather;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
