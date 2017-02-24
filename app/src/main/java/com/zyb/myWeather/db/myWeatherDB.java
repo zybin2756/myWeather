@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * Created by Administrator on 2017/2/24 0024.
+ * 数据库访问类
  */
 
 public class myWeatherDB{
@@ -37,8 +38,8 @@ public class myWeatherDB{
     public long saveProvince(Province province){
         if(province != null){
             ContentValues value = new ContentValues();
-            value.put("privince_name",province.getProvince_name());
-            value.put("privince_code",province.getProvince_code());
+            value.put("province_name",province.getProvince_name());
+            value.put("province_code",province.getProvince_code());
             return db.insert("Province",null,value);
         }
         return 0;
