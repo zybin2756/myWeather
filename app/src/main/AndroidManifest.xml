@@ -4,18 +4,20 @@
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application
+        android:name=".activity.MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".activity.SelectCityActivity">
+        <activity android:name=".activity.CityManagerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"></action>
                 <category android:name="android.intent.category.LAUNCHER"></category>
             </intent-filter>
         </activity>
+        <activity android:name=".activity.SerachCityActivity"></activity>
     </application>
 
 </manifest>

@@ -1,12 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="10dp"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_gravity="center_vertical">
+
+    <ImageButton
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_centerVertical="true"
+        android:background="@mipmap/remove"
+        android:visibility="gone"
+        android:id="@+id/btn_del"
+        tools:ignore="ContentDescription" />
+    <TextView
+        android:layout_toRightOf="@+id/btn_del"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:textSize="24sp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:gravity="center"
+        android:layout_centerVertical="true"
+        android:text="@string/txt_cityName"
+        android:id="@+id/txt_cityName" />
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@mipmap/location"
+        android:id="@+id/img_location"
+        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
+        android:layout_centerVertical="true"
+        android:layout_alignTop="@+id/btn_del"
+        android:layout_toRightOf="@+id/txt_cityName"
+        android:layout_toEndOf="@+id/txt_cityName"
+        android:visibility="gone"
+        tools:ignore="ContentDescription" />
 
     <TextView
-        android:text="TextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/info_name" />
-
-</LinearLayout>
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:text="@string/txt_curCity"
+        android:gravity="center"
+        android:visibility="gone"
+        android:id="@+id/txt_curCity"
+        android:textSize="24sp"/>
+</RelativeLayout>

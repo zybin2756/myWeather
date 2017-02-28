@@ -1,27 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_width="match_parent"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#EAEAEA">
+        <ImageButton
+            android:background="@mipmap/back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:id="@+id/btn_return"
+            tools:ignore="ContentDescription" />
+        <TextView
+            android:layout_toRightOf="@+id/btn_return"
+            android:layout_toEndOf="@+id/btn_return"
+            android:layout_width="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_height="wrap_content"
+            android:text="@string/cityManager"
+            android:textSize="24sp" />
+
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="返回"
-            android:layout_alignParentLeft="true"
-            android:id="@+id/btn_return"/>
+            android:layout_height="40dp"
+            android:text="@string/btnEdit"
+            android:layout_centerVertical="true"
+            android:textSize="20sp"
+            android:layout_marginRight="10dp"
+            android:layout_marginEnd="10dp"
+            android:id="@+id/btn_edit"
+            android:background="@drawable/bg_btn_corners"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/lst_city"
+        android:layout_weight="7"></ListView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#EAEAEA"
+        android:orientation="vertical"
+        android:gravity="center">
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@mipmap/addcity"
+            android:id="@+id/img_add"
+            tools:ignore="ContentDescription" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="城市管理"
-            android:layout_centerInParent="true"
-            android:textSize="24sp" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="编辑"
-            android:layout_alignParentRight="true"
-            android:id="@+id/btn_edit"/>
-    </RelativeLayout>
+            android:textSize="20sp"
+            android:textColor="#000000"
+            android:text="@string/btnAdd"/>
+    </LinearLayout>
 </LinearLayout>
