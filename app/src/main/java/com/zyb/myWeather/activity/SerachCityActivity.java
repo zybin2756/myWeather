@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.Window;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 
 import com.zyb.myWeather.R;
 
@@ -15,6 +16,7 @@ import com.zyb.myWeather.R;
 public class SerachCityActivity extends BaseActivity {
     ImageButton search_btn_return = null;
     EditText search_edt_key = null;
+    LinearLayout ll_quickSearch = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
