@@ -33,46 +33,11 @@
             android:id="@+id/search_edit_key"/>
     </RelativeLayout>
     <LinearLayout
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
         android:id="@+id/ll_quickSearch"
         android:layout_weight="7">
-        <LinearLayout
-            android:padding="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-
-            android:gravity="center_horizontal">
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:textSize="28dp"
-                android:layout_margin="5dp"
-                android:background="@drawable/bg_txt_corners"
-                android:text="广州"/>
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:textSize="28dp"
-                android:layout_margin="5dp"
-                android:background="@drawable/bg_txt_corners"
-                android:text="广州"
-                android:id="@+id/textView" />
-
-            <TextView
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:gravity="center"
-                android:textSize="28dp"
-                android:layout_margin="5dp"
-                android:background="@drawable/bg_txt_corners"
-                android:text="广州"/>
-        </LinearLayout>
-
     </LinearLayout>
 </LinearLayout>

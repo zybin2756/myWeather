@@ -4,10 +4,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.support.annotation.Nullable;
 
 import com.zyb.myWeather.model.City;
 import com.zyb.myWeather.model.County;
 import com.zyb.myWeather.model.Province;
+import com.zyb.myWeather.utils.Constants;
+import com.zyb.myWeather.utils.LogUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +57,7 @@ public class myWeatherDB{
                 Province p = new Province();
                 p.setProvince_id(cursor.getInt(cursor.getColumnIndex("province_id")));
                 p.setProvince_name(cursor.getString(cursor.getColumnIndex("province_name")));
-                p.setProvince_name(cursor.getString(cursor.getColumnIndex("province_code")));
+                p.setProvince_code(cursor.getString(cursor.getColumnIndex("province_code")));
                 list.add(p);
             }while(cursor.moveToNext());
         }
@@ -70,6 +73,15 @@ public class myWeatherDB{
             return db.insert("City",null,value);
         }
         return 0;
+    }
+
+    public int loadCityCount(int province_id){
+        int count = 0;
+        Cursor cursor = db.query("City",new String[]{"count(*)"},"province_id = ?",new String[]{String.valueOf(province_id)},null,null,null);
+        if(cursor.moveToFirst()){
+            count = cursor.getInt(cursor.getColumnIndex("count(*)"));
+        }
+        return count;
     }
 
     public List<City> loadCity(int province_id){
@@ -117,4 +129,32 @@ public class myWeatherDB{
         }
         return list;
     };
+
+
+    public void clearData(int type, int id ){
+        switch(type){
+            case Constants.ALL:{
+                db.delete("Province",null,null);
+                db.delete("City",null,null);
+                db.delete("County",null,null);
+                break;
+            }
+            case Constants.PROVINCE:
+                db.delete("Province",null,null);
+                break;
+            case Constants.CITY:
+                if(id != 0){
+                    db.delete("City", "province_id=?", new String []{String.valueOf(id)});
+                }else {
+                    db.delete("City", null, null);
+                }
+            case Constants.COUNTY:
+                if(id != 0){
+                    db.delete("County", "city_id=?", new String []{String.valueOf(id)});
+                }else {
+                    db.delete("County", null, null);
+                }
+                break;
+        }
+    }
 }

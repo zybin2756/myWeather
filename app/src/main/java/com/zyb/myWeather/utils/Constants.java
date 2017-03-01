@@ -6,4 +6,9 @@ package com.zyb.myWeather.utils;
 
 public class Constants {
     public static final int PROVINCE = 1;
+    public static final int CITY = 2;
+    public static final int COUNTY = 3;
+    public static final int ALL = 4;
+
+
 }
