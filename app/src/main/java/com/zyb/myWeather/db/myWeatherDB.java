@@ -101,6 +101,22 @@ public class myWeatherDB{
         return list;
     };
 
+    public List<City> loadAllCity(){
+        Cursor cursor = db.query("City",null,null,null,null,null,null);
+        List<City> list = null;
+        if(cursor.moveToFirst()){
+            list = new ArrayList<City>();
+            do{
+                City c = new City();
+                c.setCity_id(cursor.getInt(cursor.getColumnIndex("city_id")));
+                c.setCity_name(cursor.getString(cursor.getColumnIndex("city_name")));
+                c.setCity_code(cursor.getString(cursor.getColumnIndex("city_code")));
+                list.add(c);
+            }while(cursor.moveToNext());
+        }
+        return list;
+    };
+
 
     public long saveCounty(County county){
         if(county != null){
@@ -108,9 +124,19 @@ public class myWeatherDB{
             value.put("county_name",county.getCounty_name());
             value.put("county_code",county.getCounty_code());
             value.put("city_id",county.getCity_id());
-            return db.insert("City",null,value);
+            return db.insert("County",null,value);
         }
         return 0;
+    }
+
+
+    public int loadCountyCount(int city_id){
+        int count = 0;
+        Cursor cursor = db.query("County",new String[]{"count(*)"},"city_id = ?",new String[]{String.valueOf(city_id)},null,null,null);
+        if(cursor.moveToFirst()){
+            count = cursor.getInt(cursor.getColumnIndex("count(*)"));
+        }
+        return count;
     }
 
     public List<County> loadCounty(int city_id){
