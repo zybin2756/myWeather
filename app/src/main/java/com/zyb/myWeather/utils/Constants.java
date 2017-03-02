@@ -11,4 +11,6 @@ public class Constants {
     public static final int ALL = 4;
 
 
+    public static final int START_ADD_CITY = 5;
+
 }

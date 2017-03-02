@@ -20,6 +20,7 @@ import com.zyb.myWeather.R;
 import com.zyb.myWeather.adapter.SearchCityAdapter;
 import com.zyb.myWeather.db.myWeatherDB;
 import com.zyb.myWeather.model.County;
+import com.zyb.myWeather.utils.Constants;
 import com.zyb.myWeather.utils.LogUtil;
 
 import java.util.List;
@@ -98,7 +99,9 @@ public class SerachCityActivity extends BaseActivity implements AdapterView.OnIt
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+        db.saveUserCity(searchCityAdapter.getCountyList().get(position));
+        setResult(Constants.START_ADD_CITY);
+        finish();
     }
 
     class SearchSyncTask extends AsyncTask<String,Void,List<County>>{

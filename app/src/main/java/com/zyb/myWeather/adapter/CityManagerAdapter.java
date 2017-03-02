@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.zyb.myWeather.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ import java.util.List;
 
 public class CityManagerAdapter extends BaseAdapter {
 
-    private List<String> cityList = null;
+    private List<String> cityList = new ArrayList<>();
     private Context ctx = null;
 
     private boolean isEdit = false;
@@ -28,9 +29,17 @@ public class CityManagerAdapter extends BaseAdapter {
         return  isEdit;
     }
 
-    public CityManagerAdapter(Context ctx, List<String> cityList) {
+    public CityManagerAdapter(Context ctx) {
         super();
         this.ctx = ctx;
+    }
+
+    public List<String> getCityList() {
+        return cityList;
+    }
+
+    public void setCityList(List<String> cityList) {
+        this.cityList = null;
         this.cityList = cityList;
     }
 

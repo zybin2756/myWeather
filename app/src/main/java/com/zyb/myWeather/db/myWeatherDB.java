@@ -221,13 +221,33 @@ public class myWeatherDB{
         return countyList;
     }
 
-    public List<String> loadUserCity(String code){
+    public List<String> loadUserCity(){
         List<String > list = null;
-
+        Cursor cursor = db.query("UserCity",null,null,null,null,null,null);
+        if(cursor.moveToFirst()){
+            do{
+                list.add(cursor.getString(cursor.getColumnIndex("county_code")));
+            }while(cursor.moveToNext());
+        }
+        cursor.close();
         return list;
     }
 
-    public boolean saveUserCity(String code){
-        return true;
+    public boolean isExistCity(String code){
+        Cursor cursor = db.query("UserCity",null,"county_code = ?",new String[]{code},null,null,null);
+
+        if(cursor.moveToFirst()){
+            return true;
+        }
+        return false;
+    }
+    public boolean saveUserCity(County county){
+        if(county != null && (!isExistCity(county.getCounty_code()))) {
+            ContentValues value = new ContentValues();
+            value.put("county_code",county.getCounty_code());
+            value.put("county_name",county.getCounty_name().split("-")[0]);
+            db.insert("UserCity",null,value);
+        }
+        return false;
     };
 }

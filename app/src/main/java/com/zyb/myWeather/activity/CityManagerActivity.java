@@ -13,6 +13,7 @@ import android.widget.ListView;
 
 import com.zyb.myWeather.R;
 import com.zyb.myWeather.adapter.CityManagerAdapter;
+import com.zyb.myWeather.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,9 +40,8 @@ public class CityManagerActivity extends BaseActivity implements View.OnClickLis
         btn_edit = (Button) findViewById(R.id.btn_edit);
         img_addCity = (ImageView) findViewById(R.id.img_add);
         lst_city = (ListView) findViewById(R.id.lst_city);
-        loadData();
+        adapter = new CityManagerAdapter(this);
         lst_city.setAdapter(adapter);
-
         btn_edit.setOnClickListener(this);
         btn_return.setOnClickListener(this);
         img_addCity.setOnClickListener(this);
@@ -50,14 +50,6 @@ public class CityManagerActivity extends BaseActivity implements View.OnClickLis
     @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
-
-    private void loadData(){
-        List<String> lst = new ArrayList<>();
-        lst.add("广州");
-        lst.add("深圳");
-        lst.add("伤害");
-        adapter = new CityManagerAdapter(this,lst);
     }
 
     @Override
@@ -81,9 +73,18 @@ public class CityManagerActivity extends BaseActivity implements View.OnClickLis
 
             case R.id.img_add:{
                 Intent intent = new Intent(this,SerachCityActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, Constants.START_ADD_CITY);
                 break;
             }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode){
+            case Constants.START_ADD_CITY:
+
+                break;
         }
     }
 }
