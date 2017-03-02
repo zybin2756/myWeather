@@ -47,5 +47,6 @@ public class SearchKeyLine extends LinearLayout implements View.OnClickListener{
     public void onClick(View v) {
         Button btn = (Button)v;
         edit_search.setText(btn.getText());
+        edit_search.setSelection(btn.getText().length());
     }
 }

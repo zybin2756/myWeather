@@ -60,8 +60,8 @@ public class ParseUtil {
                 County county = new County();
                 for(String c : counties){
                     String[] tmp = c.split("\\|");
-                    county.setCounty_name(tmp[0]);
-                    county.setCounty_code(tmp[1]);
+                    county.setCounty_name(tmp[1]);
+                    county.setCounty_code(tmp[0]);
                     county.setCity_id(city_id);
                     weatherDB.saveCounty(county);
                     tmp = null;

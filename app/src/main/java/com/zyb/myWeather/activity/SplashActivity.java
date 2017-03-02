@@ -135,6 +135,7 @@ public class SplashActivity extends BaseActivity {
         for(City city :cityList){
             int c_id = city.getCity_id();
             if(db.loadCountyCount(c_id) == 0){
+                db.clearData(Constants.COUNTY,c_id);
                 loadCuntyInfo(c_id,city.getCity_code());
             }
         }

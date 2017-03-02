@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.Nullable;
 
 import com.zyb.myWeather.model.City;
 import com.zyb.myWeather.model.County;
@@ -39,13 +38,15 @@ public class myWeatherDB{
     }
 
     public long saveProvince(Province province){
+        long id = 0;
         if(province != null){
             ContentValues value = new ContentValues();
             value.put("province_name",province.getProvince_name());
             value.put("province_code",province.getProvince_code());
-            return db.insert("Province",null,value);
+            id = db.insert("Province",null,value);
+            value = null;
         }
-        return 0;
+        return id;
     }
 
     public List<Province> loadProvince(){
@@ -65,14 +66,16 @@ public class myWeatherDB{
     };
 
     public long saveCity(City city){
+        long id = 0;
         if(city != null){
             ContentValues value = new ContentValues();
             value.put("city_name",city.getCity_name());
             value.put("city_code",city.getCity_code());
             value.put("province_id",city.getProvince_id());
-            return db.insert("City",null,value);
+            id = db.insert("City",null,value);
+            value = null;
         }
-        return 0;
+        return id;
     }
 
     public int loadCityCount(int province_id){
@@ -98,6 +101,7 @@ public class myWeatherDB{
                 list.add(c);
             }while(cursor.moveToNext());
         }
+        cursor.close();
         return list;
     };
 
@@ -114,19 +118,22 @@ public class myWeatherDB{
                 list.add(c);
             }while(cursor.moveToNext());
         }
+        cursor.close();
         return list;
     };
 
 
     public long saveCounty(County county){
+        long id = 0;
         if(county != null){
             ContentValues value = new ContentValues();
             value.put("county_name",county.getCounty_name());
             value.put("county_code",county.getCounty_code());
             value.put("city_id",county.getCity_id());
-            return db.insert("County",null,value);
+            id = db.insert("County",null,value);
+            value = null;
         }
-        return 0;
+        return id;
     }
 
 
@@ -153,6 +160,7 @@ public class myWeatherDB{
                 list.add(c);
             }while(cursor.moveToNext());
         }
+        cursor.close();
         return list;
     };
 
@@ -183,4 +191,43 @@ public class myWeatherDB{
                 break;
         }
     }
+
+    public List<County> searchCityByKey(String key){
+
+        String sql = "select county_name,county_code,city_name,province_name from County as a,City as b,Province as c"
+                    +" where a.city_id = b.city_id and b.province_id = c.province_id and a.county_name like '%"+key+"%'";
+        Cursor cursor = db.rawQuery(sql,null);
+        List<County> countyList = null;
+
+        if(cursor.moveToFirst()){
+            StringBuilder stringBuilder = new StringBuilder();
+            countyList = new ArrayList<>();
+            do{
+                stringBuilder.setLength(0);
+                stringBuilder.append(cursor.getString(0));
+                stringBuilder.append("-");
+                stringBuilder.append(cursor.getString(2));
+                stringBuilder.append(", ");
+                stringBuilder.append(cursor.getString(3));
+                County county = new County();
+                county.setCounty_name(stringBuilder.toString());
+                county.setCounty_code(cursor.getString(1));
+                countyList.add(county);
+            }while(cursor.moveToNext());
+            stringBuilder = null;
+        }
+        cursor.close();
+
+        return countyList;
+    }
+
+    public List<String> loadUserCity(String code){
+        List<String > list = null;
+
+        return list;
+    }
+
+    public boolean saveUserCity(String code){
+        return true;
+    };
 }
