@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zyb.myWeather.R;
+import com.zyb.myWeather.model.County;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,14 +20,17 @@ import java.util.List;
 
 public class CityManagerAdapter extends BaseAdapter {
 
-    private List<String> cityList = new ArrayList<>();
+    private List<County> cityList = new ArrayList<>();
     private Context ctx = null;
 
     private boolean isEdit = false;
 
-    public boolean setEdit(){
-        isEdit = !isEdit;
-        return  isEdit;
+    public boolean isEdit() {
+        return isEdit;
+    }
+
+    public void setEdit(boolean edit) {
+        isEdit = edit;
     }
 
     public CityManagerAdapter(Context ctx) {
@@ -34,11 +38,11 @@ public class CityManagerAdapter extends BaseAdapter {
         this.ctx = ctx;
     }
 
-    public List<String> getCityList() {
+    public List<County> getCityList() {
         return cityList;
     }
 
-    public void setCityList(List<String> cityList) {
+    public void setCityList(List<County> cityList) {
         this.cityList = null;
         this.cityList = cityList;
     }
@@ -87,7 +91,7 @@ public class CityManagerAdapter extends BaseAdapter {
             vh.btn_del.setVisibility(View.GONE);
         }
 
-        vh.txt_cityName.setText(cityList.get(position));
+        vh.txt_cityName.setText(cityList.get(position).getCounty_name());
 
         //给删除按钮添加点击事件
         vh.btn_del.setOnClickListener(new View.OnClickListener() {

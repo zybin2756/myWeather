@@ -7,6 +7,7 @@ import android.os.Message;
 import android.util.Log;
 
 import com.zyb.myWeather.R;
+import com.zyb.myWeather.adapter.CityManagerAdapter;
 import com.zyb.myWeather.db.myWeatherDB;
 import com.zyb.myWeather.model.City;
 import com.zyb.myWeather.model.Province;
@@ -42,7 +43,7 @@ public class SplashActivity extends BaseActivity {
     public Handler handler = new Handler(){
         @Override
         public void handleMessage(Message msg) {
-            Intent intent = new Intent(SplashActivity.this,CityManagerActivity.class);
+            Intent intent = new Intent(SplashActivity.this,MainActivity.class);
             startActivity(intent);
             finish();
         }

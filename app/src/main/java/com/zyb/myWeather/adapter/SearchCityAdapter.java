@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.zyb.myWeather.R;
+import com.zyb.myWeather.db.myWeatherDB;
 import com.zyb.myWeather.model.County;
 
 import java.util.ArrayList;
@@ -20,9 +21,11 @@ public class SearchCityAdapter extends BaseAdapter {
 
     List<County> countyList = new ArrayList<>();
     Context ctx = null;
+    myWeatherDB db = null;
     public SearchCityAdapter(Context ctx)  {
         super();
         this.ctx = ctx;
+        db = myWeatherDB.getInstance(ctx);
     }
 
     public List<County> getCountyList() {
@@ -60,6 +63,11 @@ public class SearchCityAdapter extends BaseAdapter {
             convertView.setTag(vh);
         }else{
             vh = (ViewHolder) convertView.getTag();
+        }
+
+        if(db.isExistCity(countyList.get(position).getCounty_code())){
+            vh.txt_curCity.setVisibility(View.VISIBLE);
+            vh.txt_curCity.setText("已选择");
         }
         vh.txt_cityName.setText(countyList.get(position).getCounty_name());
         return convertView;

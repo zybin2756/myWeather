@@ -47,9 +47,10 @@
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:textColor="#4E16"
         android:text="@string/txt_curCity"
         android:gravity="center"
         android:visibility="gone"
         android:id="@+id/txt_curCity"
-        android:textSize="20sp"/>
+        android:textSize="16sp"/>
 </RelativeLayout>

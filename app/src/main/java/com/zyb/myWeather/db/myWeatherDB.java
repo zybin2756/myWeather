@@ -221,12 +221,27 @@ public class myWeatherDB{
         return countyList;
     }
 
-    public List<String> loadUserCity(){
-        List<String > list = null;
+    public void deleteUserCity(List<County > list){
+        if( list == null ) return;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("delete from UserCity where county_name not in ( ");
+        for(County county : list){
+            stringBuilder.append("'"+county.getCounty_name()+"',");
+        }
+        stringBuilder.deleteCharAt(stringBuilder.length()-1);
+        stringBuilder.append(")");
+        db.execSQL(stringBuilder.toString());
+    }
+
+    public List<County> loadUserCity(){
+        List<County > list = new ArrayList<>();
         Cursor cursor = db.query("UserCity",null,null,null,null,null,null);
         if(cursor.moveToFirst()){
             do{
-                list.add(cursor.getString(cursor.getColumnIndex("county_code")));
+                County county = new County();
+                county.setCounty_name(cursor.getString(1));
+                county.setCounty_code(cursor.getString(2));
+                list.add(county);
             }while(cursor.moveToNext());
         }
         cursor.close();
@@ -247,6 +262,7 @@ public class myWeatherDB{
             value.put("county_code",county.getCounty_code());
             value.put("county_name",county.getCounty_name().split("-")[0]);
             db.insert("UserCity",null,value);
+            return true;
         }
         return false;
     };

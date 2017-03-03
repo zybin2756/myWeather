@@ -124,8 +124,8 @@ public class SerachCityActivity extends BaseActivity implements AdapterView.OnIt
                 ll_quickSearch.setVisibility(View.GONE);
             }
             else{
+                Toast.makeText(SerachCityActivity.this,"无匹配城市",Toast.LENGTH_SHORT).show();
                 lv_result.setVisibility(View.GONE);
-                ll_quickSearch.setVisibility(View.VISIBLE);
             }
             progressBar2.setVisibility(View.GONE);
         }
