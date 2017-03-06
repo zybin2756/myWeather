@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.zyb.myWeather.model.City;
 import com.zyb.myWeather.model.County;
 import com.zyb.myWeather.model.Province;
+import com.zyb.myWeather.model.UserCity;
 import com.zyb.myWeather.utils.Constants;
 import com.zyb.myWeather.utils.LogUtil;
 
@@ -221,27 +222,29 @@ public class myWeatherDB{
         return countyList;
     }
 
-    public void deleteUserCity(List<County > list){
+    public void deleteUserCity(List<UserCity > list){
         if( list == null ) return;
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("delete from UserCity where county_name not in ( ");
-        for(County county : list){
-            stringBuilder.append("'"+county.getCounty_name()+"',");
+        for(UserCity userCity : list){
+            stringBuilder.append("'"+userCity.getCounty_name()+"',");
         }
         stringBuilder.deleteCharAt(stringBuilder.length()-1);
         stringBuilder.append(")");
         db.execSQL(stringBuilder.toString());
     }
 
-    public List<County> loadUserCity(){
-        List<County > list = new ArrayList<>();
+    public List<UserCity> loadUserCity(){
+        List<UserCity> list = new ArrayList<>();
         Cursor cursor = db.query("UserCity",null,null,null,null,null,null);
         if(cursor.moveToFirst()){
             do{
-                County county = new County();
-                county.setCounty_name(cursor.getString(1));
-                county.setCounty_code(cursor.getString(2));
-                list.add(county);
+                UserCity userCity = new UserCity();
+                userCity.setId(cursor.getInt(0));
+                userCity.setCounty_name(cursor.getString(1));
+                userCity.setCounty_code(cursor.getString(2));
+                userCity.setWeather_code(cursor.getString(3));
+                list.add(userCity);
             }while(cursor.moveToNext());
         }
         cursor.close();
@@ -261,9 +264,16 @@ public class myWeatherDB{
             ContentValues value = new ContentValues();
             value.put("county_code",county.getCounty_code());
             value.put("county_name",county.getCounty_name().split("-")[0]);
+            value.put("weather_code","0");
             db.insert("UserCity",null,value);
             return true;
         }
         return false;
     };
+
+    public void updateUserCity(int id,String weather_code){
+        ContentValues value = new ContentValues();
+        value.put("weather_code",weather_code);
+        db.update("UserCity",value,"id = ?", new String[]{String.valueOf(id)});
+    }
 }

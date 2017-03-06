@@ -2,7 +2,6 @@ package com.zyb.myWeather.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
@@ -11,12 +10,7 @@ import android.view.MenuItem;
 
 import com.zyb.myWeather.R;
 import com.zyb.myWeather.adapter.MainPagerAdapter;
-import com.zyb.myWeather.db.myWeatherDB;
-import com.zyb.myWeather.model.County;
 import com.zyb.myWeather.utils.Constants;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Administrator on 2017/3/3 0003.
@@ -26,25 +20,15 @@ public class MainActivity extends FragmentActivity {
 
     private ViewPager weatherViewPager = null;
     private MainPagerAdapter pagerAdapter = null;
-    private List<Fragment> fragmentList = null;
-    private myWeatherDB db = null;
+
+    private MyApplication app = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         weatherViewPager = (ViewPager) findViewById(R.id.weatherViewPager);
-        db = myWeatherDB.getInstance(this);
-        fragmentList = new ArrayList<>();
-        List<County> countyList = db.loadUserCity();
-        for(County county : countyList){
-            WeatherFragmentActivity weatherFragmentActivity = new WeatherFragmentActivity();
-            Bundle bundle = new Bundle();
-            bundle.putString("code",county.getCounty_code());
-            weatherFragmentActivity.setArguments(bundle);
-            fragmentList.add(weatherFragmentActivity);
-        }
-
-        pagerAdapter = new MainPagerAdapter(getSupportFragmentManager(),fragmentList);
+        app = (MyApplication) getApplication();
+        pagerAdapter = new MainPagerAdapter(getSupportFragmentManager(),app);
         weatherViewPager.setAdapter(pagerAdapter);
     }
 
@@ -80,7 +64,14 @@ public class MainActivity extends FragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == Constants.START_ADD_CITY){
             switch (resultCode){
-
+                case Constants.FINISH_ADD_CITY:
+                    pagerAdapter.updateFrameList();
+                    pagerAdapter.notifyDataSetChanged();
+                    weatherViewPager.setCurrentItem(app.getUserCityList().size());
+                    break;
+                case Constants.REFRESH_ADD_CITY:
+                    weatherViewPager.setCurrentItem(data.getIntExtra("index",0));
+                    break;
             }
         }
     }

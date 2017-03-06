@@ -1,5 +1,6 @@
 package com.zyb.myWeather.activity;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
@@ -20,6 +21,7 @@ import com.zyb.myWeather.R;
 import com.zyb.myWeather.adapter.SearchCityAdapter;
 import com.zyb.myWeather.db.myWeatherDB;
 import com.zyb.myWeather.model.County;
+import com.zyb.myWeather.model.UserCity;
 import com.zyb.myWeather.utils.Constants;
 import com.zyb.myWeather.utils.LogUtil;
 
@@ -36,15 +38,15 @@ public class SerachCityActivity extends BaseActivity implements AdapterView.OnIt
     ListView lv_result = null;
     ProgressBar progressBar2 = null;
     SearchCityAdapter searchCityAdapter = null;
-    myWeatherDB db = null;
     SearchSyncTask task = null;
+    MyApplication app = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.search_city_activity);
 
-        db = myWeatherDB.getInstance(this);
+        app = (MyApplication) getApplication();
 
         search_edt_key = (EditText) findViewById(R.id.search_edit_key);
         search_btn_return = (ImageButton) findViewById(R.id.search_btn_return);
@@ -99,8 +101,22 @@ public class SerachCityActivity extends BaseActivity implements AdapterView.OnIt
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        db.saveUserCity(searchCityAdapter.getCountyList().get(position));
-        setResult(Constants.START_ADD_CITY);
+        County c = searchCityAdapter.getCountyList().get(position);
+
+        if(app.getDb().saveUserCity(c)){
+            app.refreshData();
+            setResult(Constants.FINISH_ADD_CITY);
+        }else{
+            Intent intent = new Intent();
+            List<UserCity> userCityList = app.getUserCityList();
+            for(int i = 0; i < userCityList.size(); i++){
+                if(c.getCounty_code().equalsIgnoreCase(userCityList.get(i).getCounty_code())){
+                    intent.putExtra("index",i);
+                    break;
+                }
+            }
+            setResult(Constants.REFRESH_ADD_CITY,intent);
+        }
         finish();
     }
 
@@ -134,7 +150,7 @@ public class SerachCityActivity extends BaseActivity implements AdapterView.OnIt
         protected List<County> doInBackground(String... params) {
             if(isCancelled()) return null;
 
-            return db.searchCityByKey(params[0]);
+            return app.getDb().searchCityByKey(params[0]);
         }
     }
 

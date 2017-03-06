@@ -12,5 +12,7 @@ public class Constants {
 
 
     public static final int START_ADD_CITY = 5;
+    public static final int FINISH_ADD_CITY = 6;
+    public static final int REFRESH_ADD_CITY = 7;
 
 }

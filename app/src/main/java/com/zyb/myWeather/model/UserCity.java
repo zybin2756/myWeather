@@ -8,7 +8,7 @@ public class UserCity {
     private int id;
     private  String county_code;
     private  String county_name;
-
+    private  String weather_code;
     public String getCounty_name() {
         return county_name;
     }
@@ -31,5 +31,13 @@ public class UserCity {
 
     public void setCounty_code(String county_code) {
         this.county_code = county_code;
+    }
+
+    public String getWeather_code() {
+        return weather_code;
+    }
+
+    public void setWeather_code(String weather_code) {
+        this.weather_code = weather_code;
     }
 }

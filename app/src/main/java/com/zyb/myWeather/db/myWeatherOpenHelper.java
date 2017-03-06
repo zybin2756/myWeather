@@ -27,7 +27,8 @@ public class myWeatherOpenHelper extends SQLiteOpenHelper {
 
     private static final String CREATE_USER_CITY = "Create table UserCity( id integer primary key autoincrement," +
             "County_name text,"+
-            "County_code text )";
+            "County_code text," +
+            "Weather_code text )";
 
     public myWeatherOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);

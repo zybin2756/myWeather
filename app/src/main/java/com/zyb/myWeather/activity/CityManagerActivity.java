@@ -13,6 +13,7 @@ import com.zyb.myWeather.R;
 import com.zyb.myWeather.adapter.CityManagerAdapter;
 import com.zyb.myWeather.utils.Constants;
 import com.zyb.myWeather.db.myWeatherDB;
+import com.zyb.myWeather.utils.LogUtil;
 
 import java.util.List;
 
@@ -30,13 +31,16 @@ public class CityManagerActivity extends BaseActivity implements View.OnClickLis
     private ListView lst_city = null;
 
     private CityManagerAdapter adapter = null;
-    private myWeatherDB db = null;
+    private MyApplication app = null;
+
+    private boolean isEdit = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.city_manager_activity);
-        db = myWeatherDB.getInstance(this);
+        app = (MyApplication) getApplication();
         btn_return = (ImageButton) findViewById(R.id.btn_return);
         btn_edit = (Button) findViewById(R.id.btn_edit);
         btn_cancel = (Button) findViewById(R.id.btn_cancel);
@@ -67,13 +71,16 @@ public class CityManagerActivity extends BaseActivity implements View.OnClickLis
                     btn_return.setVisibility(View.GONE);
                     btn_cancel.setVisibility(View.VISIBLE);
                     adapter.setEdit(true);
+                    isEdit = false;
                 }else{
-                    db.deleteUserCity(adapter.getCityList());
+                    app.getDb().deleteUserCity(adapter.getCountyList());
                     btn_edit.setText("编辑");
                     btn_return.setVisibility(View.VISIBLE);
                     btn_cancel.setVisibility(View.GONE);
                     adapter.setEdit(false);
+                    isEdit = true;
                 }
+
                 changeData();
                 break;
             }
@@ -84,11 +91,13 @@ public class CityManagerActivity extends BaseActivity implements View.OnClickLis
                 adapter.setEdit(false);
                 btn_return.setVisibility(View.VISIBLE);
                 btn_cancel.setVisibility(View.GONE);
+                isEdit = false;
                 changeData();
                 break;
             }
 
             case R.id.btn_return:{
+                setResult(Constants.FINISH_ADD_CITY);
                 finish();
                 break;
             }
@@ -103,15 +112,22 @@ public class CityManagerActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        switch (requestCode){
-            case Constants.START_ADD_CITY:
-                finish();
-                break;
-        }
+       switch (resultCode){
+           case Constants.FINISH_ADD_CITY:
+               setResult(Constants.FINISH_ADD_CITY);
+               break;
+           case Constants.REFRESH_ADD_CITY:
+               setResult(Constants.REFRESH_ADD_CITY,data);
+               break;
+       }
+       finish();
     }
 
     private void changeData(){
-        adapter.setCityList(db.loadUserCity());
+        if(isEdit) {
+            app.refreshData();
+        }
+        adapter.setCityList(app.getDb().loadUserCity());
         adapter.notifyDataSetChanged();
     }
 }

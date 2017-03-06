@@ -16,6 +16,11 @@ import java.net.URL;
 
 public class HttpUtil {
 
+
+    public static void loadUserCityWeather(String weatherCode,final HttpRequestListener listener){
+
+    }
+
     /*
         arg1: 要访问的地址
         arg2: 回调接口

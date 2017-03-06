@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.zyb.myWeather.R;
 import com.zyb.myWeather.model.County;
+import com.zyb.myWeather.model.UserCity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class CityManagerAdapter extends BaseAdapter {
 
-    private List<County> cityList = new ArrayList<>();
+    private List<UserCity> countyList = new ArrayList<>();
     private Context ctx = null;
 
     private boolean isEdit = false;
@@ -38,18 +39,18 @@ public class CityManagerAdapter extends BaseAdapter {
         this.ctx = ctx;
     }
 
-    public List<County> getCityList() {
-        return cityList;
+    public List<UserCity> getCountyList() {
+        return countyList;
     }
 
-    public void setCityList(List<County> cityList) {
-        this.cityList = null;
-        this.cityList = cityList;
+    public void setCityList(List<UserCity> countyList) {
+        this.countyList.clear();
+        this.countyList.addAll(countyList);
     }
 
     @Override
     public int getCount() {
-        return this.cityList.size();
+        return this.countyList.size();
     }
 
     @Override
@@ -91,13 +92,13 @@ public class CityManagerAdapter extends BaseAdapter {
             vh.btn_del.setVisibility(View.GONE);
         }
 
-        vh.txt_cityName.setText(cityList.get(position).getCounty_name());
+        vh.txt_cityName.setText(countyList.get(position).getCounty_name());
 
         //给删除按钮添加点击事件
         vh.btn_del.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cityList.remove(position);
+                countyList.remove(position);
                 notifyDataSetChanged();
             }
         });
