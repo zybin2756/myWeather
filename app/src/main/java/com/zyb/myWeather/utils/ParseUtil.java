@@ -72,4 +72,13 @@ public class ParseUtil {
         }
         return false;
     }
+
+    public  synchronized  static String parseWeatherResponce(myWeatherDB weatherDB, String response){
+        if(weatherDB != null && !TextUtils.isEmpty(response)){
+            String[] codes = response.split("\\|");
+            weatherDB.updateUserCity(codes[0],codes[1]);
+            return codes[1];
+        }
+        return "";
+    }
 }

@@ -18,7 +18,13 @@ public class HttpUtil {
 
 
     public static void loadUserCityWeather(String weatherCode,final HttpRequestListener listener){
+        String address = "http://www.weather.com.cn/data/list3/city"+weatherCode+".xml";
+        sendHttpRequset(address, listener);
+    }
 
+    public static void loadWeatherInfo(String weatherCode,final HttpRequestListener listener){
+        String address = "http://www.weather.com.cn/data/cityinfo/"+weatherCode+".html";
+        sendHttpRequset(address, listener);
     }
 
     /*

@@ -271,9 +271,9 @@ public class myWeatherDB{
         return false;
     };
 
-    public void updateUserCity(int id,String weather_code){
+    public void updateUserCity(String code,String weather_code){
         ContentValues value = new ContentValues();
         value.put("weather_code",weather_code);
-        db.update("UserCity",value,"id = ?", new String[]{String.valueOf(id)});
+        db.update("UserCity",value,"county_code = ?", new String[]{code});
     }
 }

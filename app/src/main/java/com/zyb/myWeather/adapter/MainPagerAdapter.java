@@ -52,7 +52,7 @@ public class MainPagerAdapter extends FragmentStatePagerAdapter {
             WeatherFragmentActivity weatherFragmentActivity = new WeatherFragmentActivity();
             Bundle bundle = new Bundle();
             bundle.putInt("id",c.getId());
-            bundle.putString("code",c.getCounty_name());
+            bundle.putString("code",c.getCounty_code());
             bundle.putString("weather_code",c.getWeather_code());
             weatherFragmentActivity.setArguments(bundle);
             weatherList.add(weatherFragmentActivity);

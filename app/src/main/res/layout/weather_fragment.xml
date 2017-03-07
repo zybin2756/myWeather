@@ -1,10 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/test"
-        />
-</LinearLayout>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:paddingTop="40dp"
+        android:text="4~24"
+        android:textSize="80sp"
+        android:id="@+id/txt_temp"/>
+    <TextView
+        android:layout_below="@+id/txt_temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="广州 | 多云"
+        android:textSize="28sp"
+        android:id="@+id/txt_cityWeather"/>
+    <TextView
+        android:layout_below="@+id/txt_cityWeather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/txt_updatetime"
+        android:textSize="18sp"
+        android:text="更新时间:"
+        android:layout_alignParentRight="true"/>
+</RelativeLayout>
