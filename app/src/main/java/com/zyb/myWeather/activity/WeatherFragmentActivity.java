@@ -1,6 +1,8 @@
 package com.zyb.myWeather.activity;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -50,6 +52,7 @@ public class WeatherFragmentActivity extends Fragment {
 
                 @Override
                 public void OnFinish(String response) {
+                    ParseUtil.parswWeatherInfo(getContext(),response);
                     updateHandler.sendEmptyMessage(1);
                 }
 
@@ -66,7 +69,7 @@ public class WeatherFragmentActivity extends Fragment {
                     if(weather_code != ""){
                         loadWeatherInfo();
                     }else{
-                        updateHandler.sendEmptyMessage(0);
+                        updateHandler.sendEmptyMessage(1);
                     }
                 }
 
@@ -95,7 +98,10 @@ public class WeatherFragmentActivity extends Fragment {
         public void handleMessage(Message msg) {
             switch(msg.what){
                 case 1:
-
+                    SharedPreferences sharedPreferences = getContext().getSharedPreferences(weather_code, Context.MODE_PRIVATE);
+                    txt_temp.setText(sharedPreferences.getString("temp1","0")+"~"+sharedPreferences.getString("temp2","0"));
+                    txt_cityWeather.setText(sharedPreferences.getString("city","")+" | "+sharedPreferences.getString("weather",""));
+                    txt_updatetime.setText("更新时间:"+sharedPreferences.getString("ptime","00:00"));
                     break;
 
                 case 0:

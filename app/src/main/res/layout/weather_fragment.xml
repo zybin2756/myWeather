@@ -8,7 +8,7 @@
         android:layout_centerHorizontal="true"
         android:paddingTop="40dp"
         android:text="4~24"
-        android:textSize="80sp"
+        android:textSize="60sp"
         android:id="@+id/txt_temp"/>
     <TextView
         android:layout_below="@+id/txt_temp"
